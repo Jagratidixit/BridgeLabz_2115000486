@@ -24,6 +24,5 @@ public class Level2Q4 {
             System.out.println(number + " is not a prime number.");
         }
 
-        scanner.close();
     }
 }
