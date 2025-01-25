@@ -1,56 +1,73 @@
 import java.util.Scanner;
 
-class Level2Q8 {
+public class Level2Q8 {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
         System.out.print("Enter the number of students: ");
-        int numStudents = input.nextInt();
+        int numStudents = scanner.nextInt();
 
-        int[][] marks = new int[numStudents][3]; // [][0]: Physics, [][1]: Chemistry, [][2]: Maths
+        int[] physicsMarks = new int[numStudents];
+        int[] chemistryMarks = new int[numStudents];
+        int[] mathsMarks = new int[numStudents];
         double[] percentages = new double[numStudents];
         char[] grades = new char[numStudents];
 
         for (int i = 0; i < numStudents; i++) {
-            System.out.println("Enter marks for Student " + (i + 1) + ":");
+            System.out.println("Enter marks for student " + (i + 1) + ":");
 
-            do {
-                System.out.print("Physics (0-100): ");
-                marks[i][0] = input.nextInt();
-            } while (marks[i][0] < 0 || marks[i][0] > 100);
+            physicsMarks[i] = getValidMarks(scanner, "Physics");
+            chemistryMarks[i] = getValidMarks(scanner, "Chemistry");
+            mathsMarks[i] = getValidMarks(scanner, "Maths");
+            percentages[i] = calculatePercentage(physicsMarks[i], chemistryMarks[i], mathsMarks[i]);
+            grades[i] = calculateGrade(percentages[i]);
+        }
 
-            do {
-                System.out.print("Chemistry (0-100): ");
-                marks[i][1] = input.nextInt();
-            } while (marks[i][1] < 0 || marks[i][1] > 100);
+        System.out.println("\nMarks, Percentages, and Grades of Students:");
+        for (int i = 0; i < numStudents; i++) {
+            System.out.println("Student " + (i + 1) + ":");
+            System.out.println("Physics: " + physicsMarks[i]);
+            System.out.println("Chemistry: " + chemistryMarks[i]);
+            System.out.println("Maths: " + mathsMarks[i]);
+            System.out.println("Percentage: " + percentages[i] + "%");
+            System.out.println("Grade: " + grades[i]);
+            System.out.println();
+        }
 
-            do {
-                System.out.print("Maths (0-100): ");
-                marks[i][2] = input.nextInt();
-            } while (marks[i][2] < 0 || marks[i][2] > 100);
+        scanner.close();
+    }
 
-            percentages[i] = (marks[i][0] + marks[i][1] + marks[i][2]) / 3.0;
-
-            if (percentages[i] >= 80) {
-                grades[i] = 'A';
-            } else if (percentages[i] >= 70) {
-                grades[i] = 'B';
-            } else if (percentages[i] >= 60) {
-                grades[i] = 'C';
-            } else if (percentages[i] >= 50) {
-                grades[i] = 'D';
-            } else if (percentages[i] >= 40) {
-                grades[i] = 'E';
+    private static int getValidMarks(Scanner scanner, String subject) {
+        int marks;
+        while (true) {
+            System.out.print(subject + " marks: ");
+            marks = scanner.nextInt();
+            if (marks >= 0) {
+                break;
             } else {
-                grades[i] = 'R';
+                System.out.println("Please enter positive values.");
             }
         }
+        return marks;
+    }
 
-        System.out.println("\nResults:");
-        for (int i = 0; i < numStudents; i++) {
-            System.out.printf("Student %d: Physics = %d, Chemistry = %d, Maths = %d, Percentage = %.2f%%, Grade = %c%n",
-                    (i + 1), marks[i][0], marks[i][1], marks[i][2], percentages[i], grades[i]);
+    private static double calculatePercentage(int physics, int chemistry, int maths) {
+        return (physics + chemistry + maths) / 3.0;
+    }
+
+    private static char calculateGrade(double percentage) {
+        if (percentage >= 80) {
+            return 'A';
+        } else if (percentage >= 70) {
+            return 'B';
+        } else if (percentage >= 60) {
+            return 'C';
+        } else if (percentage >= 50) {
+            return 'D';
+        } else if (percentage >= 40) {
+            return 'E';
+        } else {
+            return 'R';
         }
-
     }
 }
