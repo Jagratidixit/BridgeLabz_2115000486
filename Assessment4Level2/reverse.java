@@ -1,26 +1,33 @@
 import java.util.Scanner;
-public class Level2Q4 {
+
+public class Level2Q5 {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         System.out.print("Enter a number: ");
-        int number = sc.nextInt();
-
-        if (number < 0) {
-            System.out.println("Invalid number.");
-            System.exit(0);
+        int number = scanner.nextInt();
+        
+        int temp = number;
+        int count = 0;
+        while (temp != 0) {
+            temp /= 10;
+            count++;
         }
-
-        int digitCount = String.valueOf(number).length();
-        int[] digits = new int[digitCount];
-
-        for (int i = 0; i < digitCount; i++) {
-            digits[i] = number % 10;
-            number /= 10;
+        
+        int[] digits = new int[count];
+        temp = number;
+        for (int i = 0; i < count; i++) {
+            digits[i] = temp % 10;
+            temp /= 10;
         }
-
-        System.out.println("Reversed Number: ");
-        for (int i = 0; i < digitCount; i++) {
-            System.out.print(digits[i]);
+        
+        int[] reversedDigits = new int[count];
+        for (int i = 0; i < count; i++) {
+            reversedDigits[i] = digits[count - 1 - i];
+        }
+        
+        System.out.print("Reversed number: ");
+        for (int i = 0; i < count; i++) {
+            System.out.print(reversedDigits[i]);
         }
     }
 }
