@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Level2Q9 {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         int students = 5;
         int subjects = 3;
         int[][] marks = new int[students][subjects];
@@ -12,7 +12,7 @@ public class Level2Q9 {
             System.out.println("Enter marks for student " + (i + 1) + ":");
             for (int j = 0; j < subjects; j++) {
                 System.out.print(subjectNames[j] + ": ");
-                marks[i][j] = sc.nextInt();
+                marks[i][j] = scanner.nextInt();
             }
         }
         
